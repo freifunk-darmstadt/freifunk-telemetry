@@ -1,5 +1,4 @@
 import itertools
-
 import re
 
 from freifunk_telemetry.util import pairwise

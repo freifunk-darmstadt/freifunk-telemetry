@@ -2,6 +2,7 @@
 import logging
 import pprint
 
+from freifunk_telemetry.dhcp import read_dhcp_leases
 from freifunk_telemetry.fastd import read_from_fastd_socket, get_fastd_process_stats, read_fastd
 from freifunk_telemetry.graphite import write_to_graphite
 from freifunk_telemetry.network import read_interface_counters, read_snmp, read_snmp6, read_conntrack
@@ -20,9 +21,10 @@ def main():
     read_snmp6(update)
     read_context_switches(update)
     read_fastd(update)
+    read_dhcp_leases(update)
 
-    pprint.pprint(update)
-    #write_to_graphite(update)
+    #pprint.pprint(update)
+    write_to_graphite(update)
 
 
 if __name__ == "__main__":
