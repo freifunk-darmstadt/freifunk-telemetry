@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import logging
 import pprint
 
@@ -12,19 +13,31 @@ logger = logging.getLogger(__name__)
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--test', dest='test', action='store_true', default=False,
+                        help='run in test mode (echoes output)')
+
+    args = parser.parse_args()
+
     update = {}
 
-    read_interface_counters(update)
-    read_load(update)
-    read_conntrack(update)
-    read_snmp(update)
-    read_snmp6(update)
-    read_context_switches(update)
-    read_fastd(update)
-    read_dhcp_leases(update)
+    for plugin in [read_interface_counters,
+                   read_load,
+                   read_conntrack,
+                   read_snmp,
+                   read_snmp6,
+                   read_context_switches,
+                   read_fastd,
+                   read_dhcp_leases]:
+        try:
+            plugin(update)
+        except Exception as e:
+            logger.exception(e)
 
-    #pprint.pprint(update)
-    write_to_graphite(update)
+    if args.test:
+        pprint.pprint(update)
+    else:
+        write_to_graphite(update)
 
 
 if __name__ == "__main__":

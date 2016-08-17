@@ -1,0 +1,9 @@
+Inter-|   Receive                                                |  Transmit
+ face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
+services: 23800334  117731    0    0    0     0          0         0 21073279  225101    0    0    0     0       0          0
+ffda-vpn: 5512833094 28254704    0    0    0     0          0         0 22833209273 28761197    0 7751092    0     0       0          0
+    lo:  295153    1377    0    0    0     0          0         0   295153    1377    0    0    0     0       0          0
+ffda-transport: 2876460677 13028407    0 3545    0     0          0         0 7795846346 14454388    0    0    0     0       0          0
+ffda-bat: 2908463452 22459263    0    0    0     0          0         0 26868037625 25656454    0 37967    0     0       0          0
+ffda-br: 2594565738 22480284    0    0    0     0          0         0 26869923145 25694414    0    0    0     0       0          0
+  eth0: 23090726806 43335640    0    0    0     0          0         0 19413404957 51888275    0    0    0     0       0          0

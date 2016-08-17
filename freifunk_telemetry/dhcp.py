@@ -7,7 +7,7 @@ def read_dhcp_leases(update):
     except FileNotFoundError:
         return
     else:
-        update['dhcpd.count'] = len(list(leases))
-        update['dhcpd.active'] = len(list(leases.active))
-        update['dhcpd.valid'] = len(list(leases.valid))
-        update['dhcpd.current'] = len(list(leases.current))
+        update['dhcpd.count'] = leases.count()
+        update['dhcpd.active'] = leases.active.count()
+        update['dhcpd.valid'] = leases.valid.count()
+        update['dhcpd.current'] = leases.current.count()

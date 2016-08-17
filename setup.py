@@ -5,7 +5,7 @@ setup(
     version='0.0.1',
     install_requires=[
         'psutil',
-        'isc-dhcp-filter'
+        'isc-dhcp-filter>=0.0.2'
     ],
     packages=['freifunk_telemetry'],
     entry_points={

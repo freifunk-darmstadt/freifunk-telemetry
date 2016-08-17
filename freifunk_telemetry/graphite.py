@@ -4,7 +4,9 @@ import time
 from freifunk_telemetry.util import get_socket
 
 
-def write_to_graphite(data, prefix='freifunk', hostname=socket.gethostname()):
+def write_to_graphite(data, prefix='freifunk', hostname=None):
+    if hostname is None:
+        hostname = socket.gethostname()
     if '.' in hostname:
         hostname = hostname.split('.')[0]
     now = time.time()

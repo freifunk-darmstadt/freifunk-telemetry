@@ -1,0 +1,108 @@
+{
+  "uptime": 25593405,
+  "statistics": {
+    "rx": {
+      "packets": 36226127,
+      "bytes": 7220993395
+    },
+    "rx_reordered": {
+      "packets": 90699,
+      "bytes": 15372313
+    },
+    "tx": {
+      "packets": 49408918,
+      "bytes": 29046160174
+    },
+    "tx_dropped": {
+      "packets": 0,
+      "bytes": 0
+    },
+    "tx_error": {
+      "packets": 0,
+      "bytes": 0
+    }
+  },
+  "peers": {
+    "db9d5b10f71c236900325e0efeafed67fbb88a08954039ebe2089233a0507d69": {
+      "name": "some1",
+      "address": "any",
+      "connection": null
+    },
+    "35dd618c5128e882cba59765030211a98c734117c3fffddb364033e2d68a9f94": {
+      "name": "some2",
+      "address": "any",
+      "connection": null
+    },
+    "f96ca591b5df2a1c2e9f238ae131a374053e32ce492afa4c9a6765ac53b49cc4": {
+      "name": "some3",
+      "address": "[2001:67c:2ed8::42:1]:3334",
+      "connection": null
+    },
+    "b39fc4fecabc6d418baf05fb3f4b08c3a2f79eba5ccd94027a93726a037f99bb": {
+      "name": "some4",
+      "address": "[2001:67c:2ed8::44:1]:6100",
+      "connection": {
+        "established": 25586355,
+        "method": "salsa2012+umac",
+        "statistics": {
+          "rx": {
+            "packets": 7201709,
+            "bytes": 2088247003
+          },
+          "rx_reordered": {
+            "packets": 0,
+            "bytes": 0
+          },
+          "tx": {
+            "packets": 3081108,
+            "bytes": 869764239
+          },
+          "tx_dropped": {
+            "packets": 0,
+            "bytes": 0
+          },
+          "tx_error": {
+            "packets": 0,
+            "bytes": 0
+          }
+        },
+        "mac_addresses": [
+          "da:ff:61:00:05:03"
+        ]
+      }
+    },
+    "e04a2e54f873876ea2fc50973f85743daee7878c1872f905c94b12371fea3b9d": {
+      "name": "some5",
+      "address": "[2001:67c:2ed8::40:1]:6100",
+      "connection": {
+        "established": 25586375,
+        "method": "salsa2012+umac",
+        "statistics": {
+          "rx": {
+            "packets": 5361235,
+            "bytes": 1080088202
+          },
+          "rx_reordered": {
+            "packets": 0,
+            "bytes": 0
+          },
+          "tx": {
+            "packets": 5595716,
+            "bytes": 2304797646
+          },
+          "tx_dropped": {
+            "packets": 0,
+            "bytes": 0
+          },
+          "tx_error": {
+            "packets": 0,
+            "bytes": 0
+          }
+        },
+        "mac_addresses": [
+          "da:ff:61:00:01:03"
+        ]
+      }
+    }
+  }
+}

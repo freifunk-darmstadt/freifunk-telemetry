@@ -8,35 +8,30 @@ from freifunk_telemetry.util import get_unix_socket
 
 def read_from_fastd_socket(filename):
     with get_unix_socket(filename) as client:
-        try:
-            strings = []
-            while True:
-                s = client.recv(8096)
-                if not s:
-                    break
-                strings.append(s.decode('utf-8'))
+        strings = []
+        while True:
+            s = client.recv(8096)
+            if not s:
+                break
+            strings.append(s.decode('utf-8'))
 
-            data = json.loads(''.join(strings))
-            # pprint.pprint(data['statistics'])
+        data = json.loads(''.join(strings))
+        # pprint.pprint(data['statistics'])
 
-            online_peers = len([None for name, d in data['peers'].items() if d['connection']])
+        online_peers = len([None for name, d in data['peers'].items() if d['connection']])
 
-            return {
-                'peers.count': len(data['peers']),
-                'peers.online': online_peers,
-                'rx.packets': data['statistics']['rx']['packets'],
-                'rx.bytes': data['statistics']['rx']['bytes'],
-                'rx.reordered.bytes': data['statistics']['rx_reordered']['bytes'],
-                'rx.reordered.packets': data['statistics']['rx_reordered']['packets'],
-                'tx.bytes': data['statistics']['tx']['bytes'],
-                'tx.packets': data['statistics']['tx']['packets'],
-                'tx.dropped.bytes': data['statistics']['tx_dropped']['bytes'],
-                'tx.dropped.packets': data['statistics']['tx_dropped']['packets'],
-            }
-
-        except Exception as e:
-            print(e)
-            return {}
+        return {
+            'peers.count': len(data['peers']),
+            'peers.online': online_peers,
+            'rx.packets': data['statistics']['rx']['packets'],
+            'rx.bytes': data['statistics']['rx']['bytes'],
+            'rx.reordered.bytes': data['statistics']['rx_reordered']['bytes'],
+            'rx.reordered.packets': data['statistics']['rx_reordered']['packets'],
+            'tx.bytes': data['statistics']['tx']['bytes'],
+            'tx.packets': data['statistics']['tx']['packets'],
+            'tx.dropped.bytes': data['statistics']['tx_dropped']['bytes'],
+            'tx.dropped.packets': data['statistics']['tx_dropped']['packets'],
+        }
 
 
 def get_fastd_process_stats():

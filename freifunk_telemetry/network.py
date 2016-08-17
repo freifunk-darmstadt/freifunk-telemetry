@@ -59,11 +59,8 @@ def read_interface_counters(update):
 
 def read_conntrack(update):
     for key in ['count', 'max']:
-        try:
             with open('/proc/sys/net/netfilter/nf_conntrack_%s' % key, 'r') as fh:
                 update['netfilter.%s' % key] = fh.read().strip()
-        except IOError as e:
-            pass
 
 
 def read_snmp6(update):
