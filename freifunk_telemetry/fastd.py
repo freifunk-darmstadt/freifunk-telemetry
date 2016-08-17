@@ -2,7 +2,6 @@ import json
 import os
 
 import psutil
-
 from freifunk_telemetry.util import get_unix_socket
 
 
