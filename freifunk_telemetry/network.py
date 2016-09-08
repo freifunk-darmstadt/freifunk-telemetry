@@ -1,5 +1,8 @@
 import itertools
 import re
+import socket
+
+import pyroute2
 
 from freifunk_telemetry.util import pairwise
 
@@ -80,3 +83,19 @@ def read_snmp(update):
             values = values.strip().split(' ')
             for key, value in zip(headings, values):
                 update['ipv4.%s.%s' % (section, key)] = value
+
+
+def read_neigh(update):
+    ip_route = pyroute2.IPRoute()
+    families = {
+        'ipv4': socket.AF_INET,
+        'ipv6': socket.AF_INET6,
+    }
+    for label, family in families.items():
+        for idx, name in socket.if_nameindex():
+            neigh = ip_route.get_neighbours(family=family, ifindex=idx)
+            update['%s.neigh.%s.count' % (label, name)] = len(neigh)
+
+        for key in ['gc_thresh1', 'gc_thresh2', 'gc_thresh3']:
+            with open('/proc/sys/net/%s/neigh/default/%s' % (label, key), 'r') as fh:
+                update['%s.neigh.%s' % (label, key)] = fh.read().strip()
