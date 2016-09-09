@@ -92,9 +92,9 @@ def read_neigh(update):
         'ipv6': socket.AF_INET6,
     }
     for label, family in families.items():
-        for idx, name in socket.if_nameindex():
+        for idx, ifname in socket.if_nameindex():
             neigh = ip_route.get_neighbours(family=family, ifindex=idx)
-            update['%s.neigh.%s.count' % (label, name)] = len(neigh)
+            update['%s.neigh.%s.count' % (label, ifname)] = len(neigh)
 
         for key in ['gc_thresh1', 'gc_thresh2', 'gc_thresh3']:
             with open('/proc/sys/net/%s/neigh/default/%s' % (label, key), 'r') as fh:
