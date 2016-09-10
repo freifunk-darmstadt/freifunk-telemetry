@@ -5,7 +5,8 @@ setup(
     version='0.0.1',
     install_requires=[
         'psutil',
-        'isc-dhcp-filter>=0.0.2'
+        'isc-dhcp-filter>=0.0.2',
+        'pyroute2'
     ],
     packages=['freifunk_telemetry'],
     entry_points={

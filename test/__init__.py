@@ -16,6 +16,7 @@ from freifunk_telemetry import read_interface_counters
 from freifunk_telemetry import read_load
 from freifunk_telemetry import read_snmp
 from freifunk_telemetry import read_snmp6
+from freifunk_telemetry import read_neigh
 from freifunk_telemetry import write_to_graphite
 from freifunk_telemetry.util import get_unix_socket
 
@@ -259,3 +260,39 @@ class TestDHCP(TestCase):
         self.assertEqual(update['dhcpd.active'], 0)
         self.assertEqual(update['dhcpd.valid'], 0)
         self.assertEqual(update['dhcpd.current'], 0)
+
+
+class TestNeigh(TestCase):
+    _if_nameindex = {
+        0: 'lo',
+        1: 'en0',
+        2: 'wl0'
+    }
+
+    def test_neighbour_table_size(self):
+        def fake_if_nameindex():
+            return self._if_nameindex.items()
+
+        class FakeIPRoute:
+            def get_neighbours(_, family, ifindex, **kwargs):
+                self.assertIn(family, [socket.AF_INET, socket.AF_INET6])
+                self.assertLessEqual(ifindex, len(self._if_nameindex))
+
+                return [0]*(4 if family == socket.AF_INET else 6)
+
+        update = {}
+
+        with unittest.mock.patch('freifunk_telemetry.network.socket.if_nameindex', fake_if_nameindex):
+            with unittest.mock.patch('freifunk_telemetry.network.pyroute2.IPRoute', FakeIPRoute):
+                read_neigh(update)
+
+        for idx, ifname in fake_if_nameindex():
+            self.assertIn('ipv4.neigh.%s.count' % ifname, update)
+            self.assertIn('ipv6.neigh.%s.count' % ifname, update)
+            self.assertEqual(update['ipv4.neigh.%s.count' % ifname], 4)
+            self.assertEqual(update['ipv6.neigh.%s.count' % ifname], 6)
+
+        for proto in ['ipv4', 'ipv6']:
+            self.assertIsInstance(int(update['%s.neigh.gc_thresh1' % proto]), int)
+            self.assertIsInstance(int(update['%s.neigh.gc_thresh2' % proto]), int)
+            self.assertIsInstance(int(update['%s.neigh.gc_thresh3' % proto]), int)

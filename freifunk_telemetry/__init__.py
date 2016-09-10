@@ -6,7 +6,7 @@ import pprint
 from freifunk_telemetry.dhcp import read_dhcp_leases
 from freifunk_telemetry.fastd import read_from_fastd_socket, get_fastd_process_stats, read_fastd
 from freifunk_telemetry.graphite import write_to_graphite
-from freifunk_telemetry.network import read_interface_counters, read_snmp, read_snmp6, read_conntrack
+from freifunk_telemetry.network import read_interface_counters, read_snmp, read_snmp6, read_conntrack, read_neigh
 from freifunk_telemetry.system import read_context_switches, read_load
 
 logger = logging.getLogger(__name__)
@@ -23,6 +23,7 @@ def main():
 
     for plugin in [read_interface_counters,
                    read_load,
+                   read_neigh,
                    read_conntrack,
                    read_snmp,
                    read_snmp6,
